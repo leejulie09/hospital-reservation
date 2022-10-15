@@ -60,6 +60,11 @@ body {
   -ms-overflow-style: none;
   cursor: default;
 }
+
+button{
+  cursor: pointer;
+}
+
 a {
   text-decoration:none;
   color:inherit;
