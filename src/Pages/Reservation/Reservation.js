@@ -20,7 +20,7 @@ const Reservation = () => {
   const [transformValueIndex, setTransformValueIndex] = useState(0);
   const [clientName, setClientName] = useState("");
   const [clientPhoneNumber, setClientPhoneNumber] = useState("");
-  const [onCalendar, setOnCalendar] = useState(true);
+  const [onCalendar, setOnCalendar] = useState(false);
   const modalElement = useRef(null);
   const [value, onChange] = useState(new Date());
   const [togle, setTogle] = useState({
