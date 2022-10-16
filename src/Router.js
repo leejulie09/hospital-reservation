@@ -9,7 +9,7 @@ import ReservationCheck from "./Pages/ReservationCheck/ReservationCheck";
 const Router = () => {
   return (
     <BrowserRouter>
-      <Nav />
+      {/* <Nav /> */}
       <Routes>
         <Route path="/" element={<ChoiceMenu />} />
         <Route path="/reservation" element={<Reservation />} />
