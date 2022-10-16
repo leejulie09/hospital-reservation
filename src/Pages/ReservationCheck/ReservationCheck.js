@@ -9,11 +9,13 @@ const ReservationCheck = () => {
     phoneNumber: "",
   });
   const [filterData, setFilterData] = useState({});
+
   useEffect(() => {
     axios("http://localhost:3000/mockData.json").then((res) =>
       setHospitalData(res.data.data)
     );
   }, []);
+
   const handleChange = (e) => {
     setSearchField({ ...searchField, [e.target.name]: e.target.value });
   };
@@ -56,13 +58,29 @@ const ReservationCheck = () => {
       </SearchContainer>
       <ResultContainer>
         <ReservationList>
-          {filterData.length > 0 ? (
+          <PatientInfo>
+            <Title>예약자 성명</Title>
+            <Content>이주리</Content>
+          </PatientInfo>
+          <PatientInfo>
+            <Title>진료과</Title>
+            <Content>내과</Content>
+          </PatientInfo>
+          <PatientInfo>
+            <Title>예약 일자</Title>
+            <Content>2022년 10월 16일</Content>
+          </PatientInfo>
+          <PatientInfo>
+            <Title>예약 시간</Title>
+            <Content>오전 10시 30분</Content>
+          </PatientInfo>
+          {/* {filterData.length > 0 ? (
             filterData.map((data) => {
               return <div key={data.id}>{data.name}</div>;
             })
           ) : (
             <div>일치하는 데이터가 없습니다.</div>
-          )}
+          )} */}
         </ReservationList>
       </ResultContainer>
     </Wrap>
@@ -85,8 +103,25 @@ const SearchContainer = styled.div`
   margin-top: 40px;
 `;
 const ResultContainer = styled.div`
-  background-color: yellow;
+  width: 50%;
+  border: 1px solid #a0a0a0;
+  padding: 40px;
+  text-align: center;
+  margin-top: 40px;
 `;
+
+const PatientInfo = styled.div`
+  display: flex;
+  padding: 12px 0;
+`;
+const Title = styled.div`
+  text-align: right;
+  font-weight: 600;
+  width: 6rem;
+  margin-right: 2rem;
+`;
+const Content = styled.div``;
+
 const CheckArea = styled.div``;
 const CheckName = styled.input`
   width: 30vw;
