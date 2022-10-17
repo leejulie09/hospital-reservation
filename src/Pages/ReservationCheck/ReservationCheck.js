@@ -9,6 +9,7 @@ const ReservationCheck = () => {
     phoneNumber: "",
   });
   const [filterData, setFilterData] = useState({});
+  const [isShowing, setIsShowing] = useState(false);
 
   useEffect(() => {
     axios("http://localhost:3000/mockData.json").then((res) =>
@@ -33,6 +34,10 @@ const ReservationCheck = () => {
     );
   };
 
+  const resultHandler = () => {
+    setIsShowing(true);
+  };
+
   return (
     <Wrap>
       <SearchContainer>
@@ -55,35 +60,37 @@ const ReservationCheck = () => {
             name="phoneNumber"
           ></CheckName>
         </CheckArea>
-        <SubmitBtn onClick={onCheck}>조회하기</SubmitBtn>
+        <SubmitBtn onClick={(onCheck, resultHandler)}>조회하기</SubmitBtn>
       </SearchContainer>
-      <ResultContainer>
-        <ReservationList>
-          <PatientInfo>
-            <Title>예약자 성명</Title>
-            <Content>이주리</Content>
-          </PatientInfo>
-          <PatientInfo>
-            <Title>진료과</Title>
-            <Content>내과</Content>
-          </PatientInfo>
-          <PatientInfo>
-            <Title>예약 일자</Title>
-            <Content>2022년 10월 16일</Content>
-          </PatientInfo>
-          <PatientInfo>
-            <Title>예약 시간</Title>
-            <Content>오전 10시 30분</Content>
-          </PatientInfo>
-          {/* {filterData.length > 0 ? (
+      {isShowing ? (
+        <ResultContainer>
+          <ReservationList>
+            <PatientInfo>
+              <Title>예약자 성명</Title>
+              <Content>이주리</Content>
+            </PatientInfo>
+            <PatientInfo>
+              <Title>진료과</Title>
+              <Content>내과</Content>
+            </PatientInfo>
+            <PatientInfo>
+              <Title>예약 일자</Title>
+              <Content>2022년 10월 16일</Content>
+            </PatientInfo>
+            <PatientInfo>
+              <Title>예약 시간</Title>
+              <Content>오전 10시 30분</Content>
+            </PatientInfo>
+            {/* {filterData.length > 0 ? (
             filterData.map((data) => {
               return <div key={data.id}>{data.name}</div>;
             })
           ) : (
             <div>일치하는 데이터가 없습니다.</div>
           )} */}
-        </ReservationList>
-      </ResultContainer>
+          </ReservationList>
+        </ResultContainer>
+      ) : null}
     </Wrap>
   );
 };
