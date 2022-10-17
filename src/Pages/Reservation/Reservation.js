@@ -4,9 +4,9 @@ import styled from "styled-components";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "moment/locale/ko";
+import "./calendar.css";
 
 import ReservationCarousel from "./ReservationCarousel";
-
 
 const Reservation = () => {
   const [transformValueIndex, setTransformValueIndex] = useState(0);
@@ -61,12 +61,7 @@ const Reservation = () => {
           <CalendarModalWindow ref={modalElement}>
             <CalendarTitle>예약 날짜 선택</CalendarTitle>
             <CalendarUIBox>
-              <MyCalendar
-                calendarType="US"
-                onChange={onChange}
-                value={value}
-                formatDay={(locale, date) => moment(date).format("D")}
-              />
+              <MyCalendar calendarType="US" onChange={onChange} value={value} />
             </CalendarUIBox>
           </CalendarModalWindow>
         </CalendarModalBackground>
