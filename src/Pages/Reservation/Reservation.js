@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+// import "react-calendar/dist/Calendar.css";
 import moment from "moment/moment";
 import "moment/locale/ko";
 import { BsCalendar3 } from "react-icons/bs";
@@ -15,6 +15,7 @@ import {
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { Button, ButtonBase } from "@mui/material";
 import ButtonBox from "./ButtonBox";
+import "./calendar.css";
 
 const Reservation = () => {
   const [transformValueIndex, setTransformValueIndex] = useState(0);
@@ -65,7 +66,12 @@ const Reservation = () => {
           <CalendarModalWindow ref={modalElement}>
             <CalendarTitle>예약 날짜 선택</CalendarTitle>
             <CalendarUIBox>
-              <Calendar onChange={onChange} value={value} />
+              <MyCalendar
+                calendarType="US"
+                onChange={onChange}
+                value={value}
+                formatDay={(locale, date) => moment(date).format("D")}
+              />
             </CalendarUIBox>
           </CalendarModalWindow>
         </CalendarModalBackground>
@@ -464,3 +470,5 @@ const CalendarUIBox = styled.div`
   height: 50%;
   border: 1px solid black;
 `;
+
+const MyCalendar = styled(Calendar)``;
