@@ -7,6 +7,7 @@ import "moment/locale/ko";
 
 import ReservationCarousel from "./ReservationCarousel";
 
+
 const Reservation = () => {
   const [transformValueIndex, setTransformValueIndex] = useState(0);
   const [clientName, setClientName] = useState("");
@@ -60,7 +61,12 @@ const Reservation = () => {
           <CalendarModalWindow ref={modalElement}>
             <CalendarTitle>예약 날짜 선택</CalendarTitle>
             <CalendarUIBox>
-              <Calendar onChange={onChange} value={value} />
+              <MyCalendar
+                calendarType="US"
+                onChange={onChange}
+                value={value}
+                formatDay={(locale, date) => moment(date).format("D")}
+              />
             </CalendarUIBox>
           </CalendarModalWindow>
         </CalendarModalBackground>
@@ -319,3 +325,5 @@ const CalendarUIBox = styled.div`
   height: 50%;
   border: 1px solid black;
 `;
+
+const MyCalendar = styled(Calendar)``;
