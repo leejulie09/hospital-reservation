@@ -1,5 +1,5 @@
 .react-calendar {
-  width: 100%;
+  width: auto;
   height: 100%;
   max-width: 100%;
   background: white;
@@ -41,6 +41,8 @@
 }
 button {
   font-weight: 700;
+  font-size: 1.25em;
+  height: 2.5em;
 }
 .react-calendar__navigation button {
   min-width: 44px;
