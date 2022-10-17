@@ -22,6 +22,7 @@ const ReservationCheck = () => {
 
   const onCheck = () => {
     setFilterData(
+      // eslint-disable-next-line array-callback-return
       hospitalData[0].client_data.filter((data) => {
         if (
           searchField.name === data.name &&

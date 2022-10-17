@@ -25,21 +25,24 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 0% 10%;
 `;
 
 const ReservationBtn = styled.button`
-  width: 70%;
-  height: 60%;
+  width: 50%;
+  height: 50%;
   border-radius: 20px;
   text-decoration: none;
   border: #ebebeb;
-  font-size: 2vh;
-  background-color: #ebebeb;
-  box-shadow: 0px 0px 2px 4px #ebebeb;
+  font-size: 2rem;
+  background-color: #f7d436;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.1), 0 15px 12px rgba(0, 0, 0, 0.1);
+  transition: 0.3s all;
   :hover {
-    width: 80%;
-    height: 70%;
-    transition: width 0.5s, height 0.5s;
+    cursor: pointer;
+    transform: translateY(-1rem);
   }
 `;
 

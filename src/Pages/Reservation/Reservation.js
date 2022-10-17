@@ -4,7 +4,6 @@ import styled from "styled-components";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "moment/locale/ko";
-import "./calendar.css";
 
 import ReservationCarousel from "./ReservationCarousel";
 
@@ -14,13 +13,8 @@ const Reservation = () => {
   const [clientPhoneNumber, setClientPhoneNumber] = useState("");
   const [selectedDepartment, setselectedDepartment] = useState("");
   const [onCalendar, setOnCalendar] = useState(false);
-  const [selectedDates, setSelectedDates] = useState();
   const modalElement = useRef(null);
   const [value, onChange] = useState(new Date());
-  const [togle, setTogle] = useState({
-    date: false,
-    time: false,
-  });
 
   const changeClientName = (e) => {
     const { value } = e.target;
@@ -61,7 +55,7 @@ const Reservation = () => {
           <CalendarModalWindow ref={modalElement}>
             <CalendarTitle>예약 날짜 선택</CalendarTitle>
             <CalendarUIBox>
-              <MyCalendar calendarType="US" onChange={onChange} value={value} />
+              <Calendar onChange={onChange} value={value} />
             </CalendarUIBox>
           </CalendarModalWindow>
         </CalendarModalBackground>
@@ -245,49 +239,6 @@ const PreviewValue = styled.div`
   border-bottom: 0.1rem solid #dbdbdb;
 `;
 
-// const Container = styled.div`
-//   min-width: 800px;
-//   height: 100%;
-//   margin-top: 40px;
-//   padding: 20px;
-//   text-align: center;
-//   border: 1px solid #a0a0a0;
-// `;
-
-const PickArea = styled.div`
-  margin: 60px;
-`;
-const BorderTag = styled.span`
-  padding-bottom: 5px;
-  border-bottom: 1px solid #a0a0a0;
-  vertical-align: middle;
-`;
-
-const TogleArea = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-`;
-
-const BtnArea = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
-const InputName = styled.input`
-  border: none;
-  outline: none;
-`;
-
-const Department = styled.select`
-  border: none;
-  outline: none;
-`;
-
-const TimeBtn = styled.button``;
-
-const SumbitBtn = styled.button``;
-
 const CalendarModalBackground = styled.div`
   position: absolute;
   display: flex;
@@ -320,5 +271,3 @@ const CalendarUIBox = styled.div`
   height: 50%;
   border: 1px solid black;
 `;
-
-const MyCalendar = styled(Calendar)``;
