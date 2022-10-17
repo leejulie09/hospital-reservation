@@ -46,6 +46,9 @@
 - 예약하기, 예약조회 두 개 버튼으로 나누어짐
 - 헤더에서 처음으로 돌아가기 버튼
 
+<img width="1100" alt="image" src="https://user-images.githubusercontent.com/100172541/196069773-c8068278-259b-4de9-832f-12104606e5fe.png">
+
+
 ### 예약하기
 
 - User Flow
@@ -56,8 +59,15 @@
 - 날짜 선택을 위한 달력 모달 구현
 - 버튼 컴포넌트화 하여 재사용
 
+<img width="1100" alt="image" src="https://user-images.githubusercontent.com/100172541/196069823-31b61fc0-181c-4c01-b284-18190cc32ea5.png">
+<img width="1100" alt="image" src="https://user-images.githubusercontent.com/100172541/196069848-9a33ed93-241b-475b-9fe8-62348a222c2f.png">
+<img width="1100" alt="image" src="https://user-images.githubusercontent.com/100172541/196069868-13c6004b-3918-4b83-ad23-b23a2d7354c2.png">
+
 ### 예약조회
 
 - 예약자 이름과 번호로 조회기능 구현 ( 개인 정보지만 제3자의 열람가능성 여지가 있으므로 2개다 일치시 조회 가능)
 - 검색창에 이벤트 추가하여 입력 데이터 state로 관리
 - mock Data를 활용하여 예약정보 데이터 관리
+
+<img width="1100" alt="image" src="https://user-images.githubusercontent.com/100172541/196069909-2be92a73-ebd8-4866-ae9f-aa602515a26c.png">
+
