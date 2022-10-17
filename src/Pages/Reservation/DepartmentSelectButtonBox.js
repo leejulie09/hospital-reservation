@@ -1,7 +1,11 @@
-import { Children, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
-function ButtonBox({ departmentClick, text }) {
+function DepartmentSelectButtonBox({
+  departmentClick,
+  text,
+  setselectedDepartment,
+}) {
   const [style, setStyle] = useState(false);
 
   const onClick = () => {
@@ -10,6 +14,7 @@ function ButtonBox({ departmentClick, text }) {
     } else if (!style) {
       setStyle((prev) => !prev);
       departmentClick();
+      setselectedDepartment(text);
     }
   };
   return (
@@ -23,7 +28,7 @@ function ButtonBox({ departmentClick, text }) {
   );
 }
 
-export default ButtonBox;
+export default DepartmentSelectButtonBox;
 
 const Buttons = styled.div`
   display: flex;

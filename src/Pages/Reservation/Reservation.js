@@ -2,35 +2,26 @@ import React, { useRef } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import Calendar from "react-calendar";
-// import "react-calendar/dist/Calendar.css";
-import moment from "moment/moment";
+import "react-calendar/dist/Calendar.css";
 import "moment/locale/ko";
-import { BsCalendar3 } from "react-icons/bs";
-import { CiStethoscope } from "react-icons/ci";
-import {
-  IoIosArrowDropdown,
-  IoIosArrowDropup,
-  IoIosPerson,
-} from "react-icons/io";
-import { AiOutlineClockCircle } from "react-icons/ai";
-import { Button, ButtonBase } from "@mui/material";
-import ButtonBox from "./ButtonBox";
-import "./calendar.css";
+
+import ReservationCarousel from "./ReservationCarousel";
+
 
 const Reservation = () => {
   const [transformValueIndex, setTransformValueIndex] = useState(0);
   const [clientName, setClientName] = useState("");
   const [clientPhoneNumber, setClientPhoneNumber] = useState("");
+  const [selectedDepartment, setselectedDepartment] = useState("");
   const [onCalendar, setOnCalendar] = useState(false);
+  const [selectedDates, setSelectedDates] = useState();
   const modalElement = useRef(null);
   const [value, onChange] = useState(new Date());
   const [togle, setTogle] = useState({
     date: false,
     time: false,
   });
-  console.log(value);
-  const transformValue = ["100%", "0%", "-100%"];
-  const departmentArray = ["내 과", "외 과", "산부인과", "치과"];
+
   const changeClientName = (e) => {
     const { value } = e.target;
     setClientName(value);
@@ -39,9 +30,12 @@ const Reservation = () => {
     const { value } = e.target;
     setClientPhoneNumber(value);
   };
+  console.log(transformValueIndex);
   const pageNextClick = () => {
-    if (transformValueIndex < 2) {
+    if (transformValueIndex < 2 && (clientName && clientPhoneNumber) !== "") {
       setTransformValueIndex((prev) => prev + 1);
+    } else if ((clientName || clientPhoneNumber) === "") {
+      alert("이름과 휴대폰번호를 작성해주세요!");
     }
   };
   const pagePrevClick = () => {
@@ -49,6 +43,7 @@ const Reservation = () => {
       setTransformValueIndex((prev) => prev - 1);
     }
   };
+  const confrimClick = () => {};
   const departmentClick = () => {
     setOnCalendar(true);
   };
@@ -80,63 +75,22 @@ const Reservation = () => {
         <Wrapper>
           <SelectionBox>
             <ReservationProgressBox>
-              <CarouselWrapper>
-                <Carousel transformValue={transformValue[transformValueIndex]}>
-                  <TitleBox>STEP 1. 예약자 정보 입력</TitleBox>
-                  <ClientInformaitionBox>
-                    <InputBox>
-                      <Label>이 름</Label>
-                      <Inputs
-                        type="text"
-                        onChange={changeClientName}
-                        value={clientName}
-                      />
-                    </InputBox>
-                    <InputBox>
-                      <Label>휴대폰번호</Label>
-                      <Inputs
-                        type="text"
-                        onChange={changeClientPhoneNumber}
-                        value={clientPhoneNumber}
-                      />
-                    </InputBox>
-                  </ClientInformaitionBox>
-                </Carousel>
-                <Carousel transformValue={transformValue[transformValueIndex]}>
-                  <TitleBox>STEP 2. 진료 과목 선택</TitleBox>
-                  <ClientInformaitionBox>
-                    <InputBox>
-                      <Label>진료 과목</Label>
-                      <ButtonBoxWrapper>
-                        {departmentArray.map((i) => (
-                          <ButtonBox
-                            departmentClick={departmentClick}
-                            text={i}
-                          />
-                        ))}
-                      </ButtonBoxWrapper>
-                    </InputBox>
-                    <InputBox>
-                      <Label>예약 희망 날짜</Label>
-                      <ReservationDateBox>
-                        <ReservationDate>
-                          {"2022년 10월 30일 오후 3시 30분"}
-                        </ReservationDate>
-                        <DateChangeButton>예약 날짜 변경</DateChangeButton>
-                      </ReservationDateBox>
-                    </InputBox>
-                  </ClientInformaitionBox>
-                </Carousel>
-                <Carousel transformValue={transformValue[transformValueIndex]}>
-                  <TitleBox>STEP 3. 읽고 확인해주세요</TitleBox>
-                  <ClientInformaitionBox>
-                    <Label>방문이 어려울 경우 미리 말씀해주세요</Label>
-                  </ClientInformaitionBox>
-                </Carousel>
-              </CarouselWrapper>
+              <ReservationCarousel
+                transformValueIndex={transformValueIndex}
+                changeClientName={changeClientName}
+                clientName={clientName}
+                changeClientPhoneNumber={changeClientPhoneNumber}
+                clientPhoneNumber={clientPhoneNumber}
+                departmentClick={departmentClick}
+                setselectedDepartment={setselectedDepartment}
+              />
               <PagenationButtonBox>
                 <PrevButton onClick={pagePrevClick}>이 전</PrevButton>
-                <NextButton onClick={pageNextClick}>다 음</NextButton>
+                {transformValueIndex === 2 ? (
+                  <NextButton onClick={confrimClick}>확 인</NextButton>
+                ) : (
+                  <NextButton onClick={pageNextClick}>다 음</NextButton>
+                )}
               </PagenationButtonBox>
             </ReservationProgressBox>
           </SelectionBox>
@@ -150,6 +104,14 @@ const Reservation = () => {
               <PreviewValueBox>
                 <PreviewLabel>번 호</PreviewLabel>
                 <PreviewValue>{clientPhoneNumber}</PreviewValue>
+              </PreviewValueBox>
+              <PreviewValueBox>
+                <PreviewLabel>과 목</PreviewLabel>
+                <PreviewValue>{selectedDepartment}</PreviewValue>
+              </PreviewValueBox>
+              <PreviewValueBox>
+                <PreviewLabel>날 짜</PreviewLabel>
+                <PreviewValue>{}</PreviewValue>
               </PreviewValueBox>
             </PreviewContents>
           </PreviewBox>
@@ -172,10 +134,10 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100rem;
-  height: 55rem;
-  min-width: 100rem;
-  min-height: 55rem;
+  width: 90rem;
+  height: 45rem;
+  min-width: 80rem;
+  min-height: 35rem;
 `;
 const SelectionBox = styled.div`
   display: flex;
@@ -183,13 +145,6 @@ const SelectionBox = styled.div`
   align-items: center;
   width: 90%;
   height: 100%;
-`;
-const ButtonBoxWrapper = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  height: 60%;
 `;
 
 const ReservationProgressBox = styled.div`
@@ -202,106 +157,6 @@ const ReservationProgressBox = styled.div`
   height: 95%;
 `;
 
-const CarouselWrapper = styled.div`
-  display: flex;
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-`;
-const Carousel = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-width: 100%;
-  height: 100%;
-  transition: 0.3s all;
-  transform: translateX(${(props) => props.transformValue});
-`;
-const TitleBox = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-  height: 20%;
-  font-size: 2.5rem;
-  font-weight: 700;
-`;
-
-const ClientInformaitionBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  height: 80%;
-`;
-
-const InputBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 30%;
-  padding: 0% 5%;
-`;
-
-const Label = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-  height: 40%;
-  font-size: 2rem;
-  font-weight: 700;
-`;
-const Inputs = styled.input`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 40%;
-  font-size: 2rem;
-  outline: none;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 0.1rem solid #dbdbdb;
-`;
-
-const ReservationDateBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 40%;
-`;
-const ReservationDate = styled.span`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  height: 100%;
-  font-size: 2rem;
-  font-weight: 700;
-`;
-const DateChangeButton = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20%;
-  height: 100%;
-  font-size: 1.7rem;
-  font-weight: 700;
-  background-color: #f7d436;
-  border-radius: 1rem;
-  :hover {
-    cursor: pointer;
-  }
-`;
 const PagenationButtonBox = styled.div`
   display: flex;
   justify-content: space-around;
